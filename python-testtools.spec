@@ -5,7 +5,7 @@
 Summary:	Extensions to the Python unit testing framework
 Name:		python-testtools
 Version:	0.9.15
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Tools
 URL:		https://launchpad.net/testtools
@@ -59,6 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc LICENSE NEWS README
+%dir %{py_sitescriptdir}/testtools
 %{py_sitescriptdir}/testtools/*.py[co]
 %{py_sitescriptdir}/testtools-*.egg-info
 
