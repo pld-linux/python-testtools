@@ -9,7 +9,7 @@ Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
 Version:	0.9.34
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Tools
 Source0:	https://pypi.python.org/packages/source/t/testtools/testtools-%{version}.tar.gz
