@@ -95,22 +95,14 @@ Dokumentacja HTML do pakietu %{name}.
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
-%{__python} setup.py \
-	build --build-base build-2 \
-	install --skip-build \
-		--root=$RPM_BUILD_ROOT \
-		--optimize=2
+%py_install
 
 %py_postclean
 %{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/testtools/tests
 %endif
 
 %if %{with python3}
-%{__python3} setup.py \
-	build --build-base build-3 \
-	install --skip-build \
-		--root=$RPM_BUILD_ROOT \
-		--optimize=2
+%py3_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/testtools/tests
 %endif
