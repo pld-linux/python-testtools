@@ -31,7 +31,7 @@ BuildRequires:	python3-extras
 BuildRequires:	python3-mimeparse
 %endif
 %endif
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.710
 %{?with_doc:BuildRequires:	sphinx-pdg}
 Requires:	python-extras
 BuildArch:	noarch
