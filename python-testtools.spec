@@ -8,30 +8,35 @@
 Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
-Version:	0.9.34
-Release:	4
+Version:	1.1.0
+Release:	1
 License:	MIT
 Group:		Development/Tools
+#Source0Download: https://pypi.python.org/pypi/testtools
 Source0:	https://pypi.python.org/packages/source/t/testtools/testtools-%{version}.tar.gz
-# Source0-md5:	51d37e7376a70cee40cf17b44889fc88
-URL:		https://launchpad.net/testtools
+# Source0-md5:	47e330e90034919d51fae6dc66f2ab9b
+URL:		https://github.com/testing-cabal/testtools
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
+BuildRequires:	python-setuptools
 %if %{with tests}
 BuildRequires:	python-devel-tools
 BuildRequires:	python-extras
 BuildRequires:	python-mimeparse
+BuildRequires:	python-testtools
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-devel
+BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-devel-tools
 BuildRequires:	python3-extras
 BuildRequires:	python3-mimeparse
+BuildRequires:	python3-testtools
 %endif
 %endif
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.714
 %{?with_doc:BuildRequires:	sphinx-pdg}
 Requires:	python-extras
 BuildArch:	noarch
@@ -76,15 +81,11 @@ Dokumentacja HTML do pakietu %{name}.
 
 %build
 %if %{with python2}
-%{__python} setup.py \
-	build --build-base build-2 \
-	%{?with_tests:test}
+%py_build %{?with_tests:test}
 %endif
 
 %if %{with python3}
-%{__python3} setup.py \
-	build --build-base build-3 \
-	%{?with_tests:test}
+%py3_build %{?with_tests:test}
 %endif
 
 %if %{with doc}
