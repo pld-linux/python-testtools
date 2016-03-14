@@ -9,7 +9,7 @@ Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
 Version:	1.1.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Tools
 #Source0Download: https://pypi.python.org/pypi/testtools
@@ -99,13 +99,16 @@ rm -rf $RPM_BUILD_ROOT
 %py_install
 
 %py_postclean
-%{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/testtools/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/testtools/tests/matchers
+%{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/testtools/tests/{__init__,test_*}.py*
 %endif
 
 %if %{with python3}
 %py3_install
 
-%{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/testtools/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/testtools/tests/matchers
+%{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/testtools/tests/{__init__,test_*}.py* \
+	$RPM_BUILD_ROOT%{py3_sitescriptdir}/testtools/tests/__pycache__/{__init__,test_*}.*.py*
 %endif
 
 %clean
@@ -121,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/testtools/matchers/*.py[co]
 %dir %{py_sitescriptdir}/testtools/testresult
 %{py_sitescriptdir}/testtools/testresult/*.py[co]
+%dir %{py_sitescriptdir}/testtools/tests
+%{py_sitescriptdir}/testtools/tests/helpers.py[co]
 %{py_sitescriptdir}/testtools-%{version}-py*.egg-info
 %endif
 
@@ -137,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitescriptdir}/testtools/testresult
 %{py3_sitescriptdir}/testtools/testresult/*.py
 %{py3_sitescriptdir}/testtools/testresult/__pycache__
+%dir %{py3_sitescriptdir}/testtools/tests
+%{py3_sitescriptdir}/testtools/tests/helpers.py
+%{py3_sitescriptdir}/testtools/tests/__pycache__
 %{py3_sitescriptdir}/testtools-%{version}-py*.egg-info
 %endif
 
