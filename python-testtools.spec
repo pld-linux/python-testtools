@@ -8,13 +8,13 @@
 Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
-Version:	1.1.0
-Release:	4
+Version:	2.3.0
+Release:	1
 License:	MIT
 Group:		Development/Tools
 #Source0Download: https://pypi.python.org/pypi/testtools
 Source0:	https://pypi.python.org/packages/source/t/testtools/testtools-%{version}.tar.gz
-# Source0-md5:	47e330e90034919d51fae6dc66f2ab9b
+# Source0-md5:	0f0feb915497816cb99e39437494217e
 URL:		https://github.com/testing-cabal/testtools
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
@@ -22,8 +22,11 @@ BuildRequires:	python-setuptools
 %if %{with tests}
 BuildRequires:	python-devel-tools
 BuildRequires:	python-extras
+BuildRequires:	python-fixtures
 BuildRequires:	python-mimeparse
+BuildRequires:	python-modules
 BuildRequires:	python-testtools
+BuildRequires:	python-traceback2
 %endif
 %endif
 %if %{with python3}
@@ -32,8 +35,11 @@ BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-devel-tools
 BuildRequires:	python3-extras
+BuildRequires:	python3-fixtures
 BuildRequires:	python3-mimeparse
 BuildRequires:	python3-testtools
+BuildRequires:	python3-traceback2
+BuildRequires:	python3-unittest2
 %endif
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -120,12 +126,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE NEWS README.rst
 %dir %{py_sitescriptdir}/testtools
 %{py_sitescriptdir}/testtools/*.py[co]
-%dir %{py_sitescriptdir}/testtools/matchers
-%{py_sitescriptdir}/testtools/matchers/*.py[co]
-%dir %{py_sitescriptdir}/testtools/testresult
-%{py_sitescriptdir}/testtools/testresult/*.py[co]
-%dir %{py_sitescriptdir}/testtools/tests
-%{py_sitescriptdir}/testtools/tests/helpers.py[co]
+%{py_sitescriptdir}/testtools/matchers
+%{py_sitescriptdir}/testtools/testresult
+%{py_sitescriptdir}/testtools/tests
+%{py_sitescriptdir}/testtools/twistedsupport
 %{py_sitescriptdir}/testtools-%{version}-py*.egg-info
 %endif
 
@@ -136,15 +140,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitescriptdir}/testtools
 %{py3_sitescriptdir}/testtools/*.py
 %{py3_sitescriptdir}/testtools/__pycache__
-%dir %{py3_sitescriptdir}/testtools/matchers
-%{py3_sitescriptdir}/testtools/matchers/*.py
-%{py3_sitescriptdir}/testtools/matchers/__pycache__
-%dir %{py3_sitescriptdir}/testtools/testresult
-%{py3_sitescriptdir}/testtools/testresult/*.py
-%{py3_sitescriptdir}/testtools/testresult/__pycache__
-%dir %{py3_sitescriptdir}/testtools/tests
-%{py3_sitescriptdir}/testtools/tests/helpers.py
-%{py3_sitescriptdir}/testtools/tests/__pycache__
+%{py3_sitescriptdir}/testtools/matchers
+%{py3_sitescriptdir}/testtools/testresult
+%{py3_sitescriptdir}/testtools/tests
+%{py3_sitescriptdir}/testtools/twistedsupport
 %{py3_sitescriptdir}/testtools-%{version}-py*.egg-info
 %endif
 
