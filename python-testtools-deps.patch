@@ -1,0 +1,124 @@
+--- testtools-2.3.0/testtools/compat.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/compat.py	2018-07-25 20:13:12.616477384 +0200
+@@ -23,7 +23,6 @@
+ import os
+ import re
+ import sys
+-import traceback
+ import unicodedata
+ 
+ from extras import try_import, try_imports
+@@ -31,7 +30,8 @@
+ BytesIO = try_imports(['StringIO.StringIO', 'io.BytesIO'])
+ StringIO = try_imports(['StringIO.StringIO', 'io.StringIO'])
+ # To let setup.py work, make this a conditional import.
+-linecache = try_import('linecache2')
++linecache = try_imports(['linecache2', 'linecache'])
++traceback = try_imports(['traceback2', 'traceback'])
+ 
+ try:
+     from testtools import _compat2x as _compat
+--- testtools-2.3.0/testtools/content.py.orig	2018-07-25 20:42:06.519790918 +0200
++++ testtools-2.3.0/testtools/content.py	2018-07-25 20:42:17.726457457 +0200
+@@ -20,7 +20,7 @@
+ 
+-from extras import try_import
++from extras import try_import, try_imports
+ # To let setup.py work, make this a conditional import.
+-traceback = try_import('traceback2')
++traceback = try_imports(['traceback2', 'traceback'])
+ 
+ from testtools.compat import (
+     _b,
+--- testtools-2.3.0/requirements.txt.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/requirements.txt	2018-07-25 20:43:58.353122975 +0200
+@@ -4,6 +4,6 @@
+ # 'mimeparse' has not been uploaded by the maintainer with Python3 compat
+ # but someone kindly uploaded a fixed version as 'python-mimeparse'.
+ python-mimeparse
+-unittest2>=1.0.0
+-traceback2
++unittest2>=1.0.0; python_version<"3.5"
++traceback2; python_version<"3.5"
+ six>=1.4.0
+--- testtools-2.3.0/testtools/tests/test_testsuite.py.orig	2018-07-25 20:46:29.929787912 +0200
++++ testtools-2.3.0/testtools/tests/test_testsuite.py	2018-07-25 20:46:33.316454540 +0200
+@@ -5,9 +5,9 @@
+ import doctest
+ from pprint import pformat
+ import unittest
+-import unittest2
+ 
+-from extras import try_import
++from extras import try_import, try_imports
++unittest2 = try_imports(['unittest2', 'unittest'])
+ 
+ from testtools import (
+     ConcurrentTestSuite,
+--- testtools-2.3.0/testtools/tests/test_run.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/tests/test_run.py	2018-07-25 20:50:49.796451611 +0200
+@@ -7,10 +7,10 @@
+ import sys
+ from textwrap import dedent
+ 
+-from extras import try_import
++from extras import try_import, try_imports
+ fixtures = try_import('fixtures')
+ testresources = try_import('testresources')
+-import unittest2
++unittest2 = try_imports(['unittest2', 'unittest'])
+ 
+ import testtools
+ from testtools import TestCase, run, skipUnless
+--- testtools-2.3.0/testtools/tests/twistedsupport/test_deferred.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/tests/twistedsupport/test_deferred.py	2018-07-25 20:51:43.476450997 +0200
+@@ -52,5 +52,8 @@
+ 
+ 
+ def test_suite():
+-    from unittest2 import TestLoader, TestSuite
++    try:
++        from unittest2 import TestLoader, TestSuite
++    except ImportError:
++        from unittest import TestLoader, TestSuite
+     return TestLoader().loadTestsFromName(__name__)
+--- testtools-2.3.0/testtools/tests/twistedsupport/test_matchers.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/tests/twistedsupport/test_matchers.py	2018-07-25 21:06:30.283107538 +0200
+@@ -205,5 +205,8 @@
+ 
+ 
+ def test_suite():
+-    from unittest2 import TestLoader, TestSuite
++    try:
++        from unittest2 import TestLoader, TestSuite
++    except ImportError:
++        from unittest import TestLoader, TestSuite
+     return TestLoader().loadTestsFromName(__name__)
+--- testtools-2.3.0/testtools/tests/twistedsupport/test_runtest.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/tests/twistedsupport/test_runtest.py	2018-07-25 21:06:50.219773978 +0200
+@@ -1016,7 +1016,10 @@
+ 
+ 
+ def test_suite():
+-    from unittest2 import TestLoader, TestSuite
++    try:
++        from unittest2 import TestLoader, TestSuite
++    except ImportError:
++        from unittest import TestLoader, TestSuite
+     return TestLoader().loadTestsFromName(__name__)
+ 
+ 
+--- testtools-2.3.0/testtools/tests/test_compat.py.orig	2016-10-22 19:21:40.000000000 +0200
++++ testtools-2.3.0/testtools/tests/test_compat.py	2018-07-26 18:57:49.558875829 +0200
+@@ -3,7 +3,10 @@
+ """Tests for miscellaneous compatibility functions"""
+ 
+ import io
+-import linecache2 as linecache
++try:
++    import linecache2 as linecache
++except ImportError:
++    import linecache
+ import os
+ import sys
+ import tempfile
