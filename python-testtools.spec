@@ -15,6 +15,7 @@ Group:		Development/Tools
 #Source0Download: https://pypi.python.org/pypi/testtools
 Source0:	https://pypi.python.org/packages/source/t/testtools/testtools-%{version}.tar.gz
 # Source0-md5:	0f0feb915497816cb99e39437494217e
+Patch0:		%{name}-tests-nosource.patch
 URL:		https://github.com/testing-cabal/testtools
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
@@ -84,6 +85,7 @@ Dokumentacja HTML do pakietu %{name}.
 
 %prep
 %setup -q -n testtools-%{version}
+%patch0 -p1
 
 %build
 %if %{with python2}
