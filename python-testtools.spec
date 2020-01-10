@@ -45,7 +45,6 @@ BuildRequires:	python3-unittest2
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.714
 %{?with_doc:BuildRequires:	sphinx-pdg}
-Requires:	python-extras
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,7 +60,6 @@ biblioteki standardowej Pythona.
 Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Group:		Development/Tools
-Requires:	python3-extras
 
 %description -n python3-testtools
 testtools is a set of extensions to the Python standard library's unit
@@ -89,11 +87,21 @@ Dokumentacja HTML do pakietu %{name}.
 
 %build
 %if %{with python2}
-%py_build %{?with_tests:test}
+%py_build
+
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python} -m testtools.run testtools.tests.test_suite
+%endif
 %endif
 
 %if %{with python3}
-%py3_build %{?with_tests:test}
+%py3_build
+
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python3} -m testtools.run testtools.tests.test_suite
+%endif
 %endif
 
 %if %{with doc}
