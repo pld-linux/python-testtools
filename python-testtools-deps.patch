@@ -108,11 +108,11 @@
      return TestLoader().loadTestsFromName(__name__)
  
  
---- testtools-2.3.0/testtools/tests/test_compat.py.orig	2016-10-22 19:21:40.000000000 +0200
-+++ testtools-2.3.0/testtools/tests/test_compat.py	2018-07-26 18:57:49.558875829 +0200
-@@ -3,7 +3,10 @@
- """Tests for miscellaneous compatibility functions"""
+--- testtools-2.4.0/testtools/tests/test_compat.py.orig	2019-11-28 09:58:29.000000000 +0100
++++ testtools-2.4.0/testtools/tests/test_compat.py	2022-03-17 18:54:23.676536228 +0100
+@@ -4,7 +4,10 @@
  
+ import ast
  import io
 -import linecache2 as linecache
 +try:

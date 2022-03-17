@@ -8,17 +8,16 @@
 Summary:	Extensions to the Python unit testing framework
 Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
-Version:	2.3.0
-Release:	4
+# keep 2.4.x here for python2 support
+Version:	2.4.0
+Release:	1
 License:	MIT
 Group:		Development/Tools
 #Source0Download: https://pypi.org/simple/testtools/
 Source0:	https://files.pythonhosted.org/packages/source/t/testtools/testtools-%{version}.tar.gz
-# Source0-md5:	0f0feb915497816cb99e39437494217e
+# Source0-md5:	e8fc7185b47cfb908c641f8c4b2a6add
 Patch0:		%{name}-tests-nosource.patch
 Patch1:		%{name}-deps.patch
-# https://github.com/testing-cabal/testtools/commit/29004731f9c480b7c44a9c2605513d50d372898f.patch
-Patch2:		%{name}-py37.patch
 URL:		https://github.com/testing-cabal/testtools
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.7
@@ -98,7 +97,6 @@ Dokumentacja HTML do pakietu Pythona testttools.
 %setup -q -n testtools-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %if %{with python2}
