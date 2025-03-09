@@ -95,8 +95,8 @@ Dokumentacja HTML do pakietu Pythona testttools.
 
 %prep
 %setup -q -n testtools-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 %if %{with python2}
