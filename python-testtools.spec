@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Rozszerzenie szkieletu testów jednostkowych Pythona
 Name:		python-testtools
 # keep 2.4.x here for python2 support
 Version:	2.4.0
-Release:	3
+Release:	4
 License:	MIT
 Group:		Development/Tools
 #Source0Download: https://pypi.org/simple/testtools/
